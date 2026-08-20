@@ -23,27 +23,24 @@
 
 | 平台 | 技能目录（macOS/Linux） | Windows |
 |---|---|---|
-| 共享层（DSH 原生） | `~/.agents/skills` | `%USERPROFILE%\.agents\skills` |
-| Codex | `~/.codex/skills` | `%USERPROFILE%\.codex\skills` |
-| Claude Code | `~/.claude/skills` | `%USERPROFILE%\.claude\skills` |
-| Cursor | `~/.cursor/skills` | `%USERPROFILE%\.cursor\skills` |
-| OpenCode | `~/.config/opencode/skills` | `%USERPROFILE%\.config\opencode\skills` |
-| Hermes Agent | `~/.hermes/skills` | `%LOCALAPPDATA%\hermes\skills` |
-| OpenClaw | `~/.openclaw/skills` | `%USERPROFILE%\.openclaw\skills` |
-| Kimi Code CLI | `~/.kimi/skills` | `%USERPROFILE%\.kimi\skills` |
-| Trae（国际版） | `~/.trae/skills` | `%USERPROFILE%\.trae\skills` |
-| Trae CN（国内版） | `~/.trae-cn/skills` | `%USERPROFILE%\.trae-cn\skills` |
-| CodeBuddy | `~/.codebuddy/skills` | `%USERPROFILE%\.codebuddy\skills` |
-| Qwen Code | `~/.qwen/skills` | `%USERPROFILE%\.qwen\skills` |
-| Qoder CLI | `~/.qoder/skills` | `%USERPROFILE%\.qoder\skills` |
-| Qoder CN CLI | `~/.qoder-cn/skills` | `%USERPROFILE%\.qoder-cn\skills` |
-| QoderWork | `~/.qoderwork/skills` | `%USERPROFILE%\.qoderwork\skills` |
+| 共享层（DSH 原生） | `~/.agents/skills` | `C:\Users\<用户名>\.agents\skills` |
+| Codex | `~/.codex/skills` | `C:\Users\<用户名>\.codex\skills` |
+| Claude Code | `~/.claude/skills` | `C:\Users\<用户名>\.claude\skills` |
+| Cursor | `~/.cursor/skills` | `C:\Users\<用户名>\.cursor\skills` |
+| OpenCode | `~/.config/opencode/skills` | `C:\Users\<用户名>\.config\opencode\skills` |
+| Hermes Agent | `~/.hermes/skills` | `C:\Users\<用户名>\AppData\Local\hermes\skills` |
+| OpenClaw | `~/.openclaw/skills` | `C:\Users\<用户名>\.openclaw\skills` |
+| Kimi Code CLI | `~/.kimi/skills` | `C:\Users\<用户名>\.kimi\skills` |
+| Trae（国际版） | `~/.trae/skills` | `C:\Users\<用户名>\.trae\skills` |
+| Trae CN（国内版） | `~/.trae-cn/skills` | `C:\Users\<用户名>\.trae-cn\skills` |
+| CodeBuddy | `~/.codebuddy/skills` | `C:\Users\<用户名>\.codebuddy\skills` |
+| Qwen Code | `~/.qwen/skills` | `C:\Users\<用户名>\.qwen\skills` |
+| Qoder CLI | `~/.qoder/skills` | `C:\Users\<用户名>\.qoder\skills` |
+| Qoder CN CLI | `~/.qoder-cn/skills` | `C:\Users\<用户名>\.qoder-cn\skills` |
+| QoderWork | `~/.qoderwork/skills` | `C:\Users\<用户名>\.qoderwork\skills` |
 
 > 路径均经过官方文档或源码核实，详见 [`docs/agent-skills-migration-research.md`](docs/agent-skills-migration-research.md)。
->
-> **Windows 路径说明**：`%USERPROFILE%` 是 Windows 的用户主目录（等价于 `C:\Users\你的用户名`），`\` 是 Windows 的路径分隔符；`%LOCALAPPDATA%` 等价于 `C:\Users\你的用户名\AppData\Local`。
-
-## 安装
+>## 安装
 
 把仓库链接发给你的 DSH 助手，说一句「帮我安装这个插件并运行」即可：
 
