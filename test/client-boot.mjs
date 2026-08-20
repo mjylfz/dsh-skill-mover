@@ -46,7 +46,8 @@ const gatewayClient = await loadBundle(APP_NM + '/@deepseek-ai/dsh-api-gateway/l
 });
 
 // ---- our client bundle (built dist) ----
-const ourClient = await loadBundle(new URL('../dist/client.js', import.meta.url).href, {
+const clientPath = process.env.SKM_CLIENT || new URL('../dist/client.js', import.meta.url).href;
+const ourClient = await loadBundle(clientPath, {
   id: 'dsh-skill-mover',
   react: appRequire('react'),
 });
