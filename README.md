@@ -2,7 +2,7 @@
 
 把电脑上其他 Agent 已经装好的技能，一键搬进 DeepSeek Harness。
 
-支持 Cursor / Claude Code / Codex / OpenCode / Hermes / OpenClaw / Kimi / Trae / Trae CN / CodeBuddy / Qwen Code / Qoder / Qoder CN / QoderWork 等 14 个平台的技能目录扫描与迁移，自动识别共享层（`~/.agents/skills`）、处理同名冲突、去重软链接，迁移后 DSH 自动发现并可直接使用。
+支持 Cursor / Claude Code / Codex / OpenCode / Hermes / OpenClaw / Kimi / Trae / Trae CN / CodeBuddy / Qwen Code / Qoder / Qoder CN / QoderWork 等 14 个平台的技能扫描与迁移：自动识别共享层（`~/.agents/skills`）、同名技能自动合并、重复的技能不会搬两份，迁移后 DSH 马上就能用。
 
 ## 界面预览
 
@@ -15,7 +15,7 @@
 - 🔍 **自动扫描**：打开页面就能看到电脑上所有 Agent 都装了哪些技能，一目了然
 - ☑️ **勾选即迁移**：想搬哪个勾哪个，一次可以搬几十个
 - 🧩 **同名自动合并**：同一个技能在多个 Agent 里都有时，只装一份，来源随便你选
-- 🔗 **不会重复搬运**：指向同一份技能的软链接会自动识别
+- 🔗 **不会重复搬运**：好几个 Agent 其实用的是同一份技能，这种情况会自动识别，只算一次
 - ↩️ **随时反悔**：迁移错了可以一键移除，不影响其他已安装的技能
 - 📦 **原样复制，原目录不动**：DSH 里是独立副本，原 Agent 照常使用
 - 🧹 **自动整理**：不规范的技能名会自动改成 DSH 认识的格式，保证迁移后可用
@@ -91,7 +91,7 @@
 
 **Q: 迁移后技能找不到或不生效怎么办？**
 
-先看技能是否出现在 `~/.dsh/skills/` 目录下；再确认它的 `SKILL.md` 有规范的 `name`（小写短横线）和 `description`（插件迁移时会自动修正不合规的名字）；最后开一个新会话再试（技能按会话生效）。
+先看技能是否出现在 `~/.dsh/skills/` 目录下；再确认技能的说明文件格式没问题（插件迁移时会自动修正不规范的名字）；最后开一个新会话再试。
 
 **Q: 技能需要安装依赖（pip / npm）吗？**
 
