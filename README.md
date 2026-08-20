@@ -45,13 +45,15 @@
 
 ## 安装
 
-本插件是 **DSH 动态 Cordis 插件**（Host + Client 双端），通过 DSH 的会话级插件机制加载：
+把仓库链接发给你的 DSH 助手，说一句「帮我安装这个插件并运行」即可：
 
-1. 把本仓库的 [`skill-migrator-host.js`](skill-migrator-host.js) 与 [`skill-migrator-client.js`](skill-migrator-client.js) 两个文件内容提供给你的 DSH 助手（例如直接拖入文件，或粘贴代码）。
-2. 告诉助手：**「安装这个 Skill Migrator 插件并运行」**。
-3. 批准插件运行后，打开 **设置 → Skill 迁移** 即可使用。
+1. 在 DSH 对话中发送：`https://github.com/mjylfz/dsh-skill-migrator`
+2. 告诉助手：**「帮我安装这个插件并运行」**
+3. 助手会自动读取仓库里的插件文件并加载；批准运行请求后，打开 **设置 → Skill 迁移** 即可使用
 
-> 动态插件是会话级能力，进程重启后需要重新加载。未来可打包为 `dsh.bundle.patch` 标准 bundle 实现持久安装（见 [安装方式说明](https://github.com/0xsline/awesome-deepseek-harness#install)）。
+> 手动方式（备用）：把 [`skill-migrator-host.js`](skill-migrator-host.js) 与 [`skill-migrator-client.js`](skill-migrator-client.js) 两个文件内容直接提供给助手，再让它安装运行。
+>
+> 说明：这是 DSH 的动态插件（会话级），加载时需要授权确认，进程重启后需要重新加载。未来可打包为 `dsh.bundle.patch` 标准 bundle 实现持久安装（见 [安装方式说明](https://github.com/0xsline/awesome-deepseek-harness#install)）。
 
 ## 使用
 
