@@ -1,0 +1,12 @@
+# dsh-skill-mover bundle patch: registers the skill mover plugin.
+#
+# A single loader row: `name: dsh-skill-mover` resolves the package main
+# (dist/index.js), whose default export is the SkillMoverGateway
+# (TypertRemoteService) class — the host half. The browser half is discovered
+# automatically: dsh-client-modules scans loader entries whose package
+# declares `dsh.client` + `exports["./client"]`, and this package does, so
+# dist/client.js is served at /plugins/dsh-skill-mover/client.js and seeded
+# into window.__DSH_BOOT__.
+- insert:
+    - id: skill-mover
+      name: 'dsh-skill-mover'

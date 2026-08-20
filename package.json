@@ -1,0 +1,44 @@
+{
+  "name": "dsh-skill-mover",
+  "version": "1.0.0",
+  "description": "把其他 Agent 的技能一键搬进 DeepSeek Harness：支持 14 个平台 + 共享层识别、同名技能合并、不重复搬运、可回滚。DSH 技能搬家插件 (skill mover).",
+  "type": "module",
+  "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "default": "./dist/index.js"
+    },
+    "./client": {
+      "default": "./dist/client.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "cordis.patch.yml"
+  ],
+  "scripts": {
+    "build": "node build.mjs",
+    "prepare": "node build.mjs"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web"
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1",
+    "@deepseek-ai/dsh-typert-protocol": "^0.1.0-rc.6"
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1",
+    "@deepseek-ai/dsh-typert-protocol": "^0.1.0-rc.6",
+    "@types/node": "^20.19.43",
+    "esbuild": "^0.25.12",
+    "typescript": "^5.9.3"
+  },
+  "license": "MIT"
+}
