@@ -1,4 +1,4 @@
-<p align="center"><a href="README.md">English</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="README.zh-CN.md">简体中文</a></p>
+<p align="center"><a href="README.en.md">English</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="README.md">简体中文</a></p>
 
 # DSH Skill Mover（技能搬家助手）
 

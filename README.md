@@ -1,127 +1,126 @@
-<p align="center"><a href="README.md">English</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="README.zh-CN.md">简体中文</a></p>
+<p align="center"><a href="README.en.md">English</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="README.md">简体中文</a></p>
 
-# DSH Skill Mover
+# DSH Skill Mover（技能搬家助手）
 
-Move skills already installed in other agents into DeepSeek Harness in one click.
+把电脑上其他 Agent 已经装好的技能，一键搬进 DeepSeek Harness。
 
-Scans and migrates skills from 14 agent platforms (Cursor / Claude Code / Codex / OpenCode / Hermes / OpenClaw / Kimi / Trae / Trae CN / CodeBuddy / Qwen Code / Qoder / Qoder CN / QoderWork): recognizes the shared layer (`~/.agents/skills`) automatically, merges same-name skills, never copies the same skill twice, and skills are usable in DSH right after migration.
+支持 Cursor / Claude Code / Codex / OpenCode / Hermes / OpenClaw / Kimi / Trae / Trae CN / CodeBuddy / Qwen Code / Qoder / Qoder CN / QoderWork 等 14 个平台的技能扫描与迁移：自动识别共享层（`~/.agents/skills`）、同名技能自动合并、重复的技能不会搬两份，迁移后 DSH 马上就能用。
 
-## Preview
+## 界面预览
 
-![Skill Mover main UI](assets/screenshot-main.png)
+![Skill 迁移主界面](assets/screenshot-main.png)
 
-Settings → Skill Mover: skills found on your machine are grouped by platform, check what you want, migrate in one click.
+设置 → Skill 迁移：按平台分组展示本机扫描到的技能，勾选后一键迁移。
 
-## Features
+## 功能特性
 
-- 🔍 **Auto scan**: open the page and see every skill installed in every agent on your computer
-- ☑️ **Check & migrate**: check the ones you want, migrate dozens at once
-- 🧩 **Same-name merge**: when several agents share the same skill, it is installed once — pick the source freely
-- 🔗 **No duplicates**: when agents actually point to the same skill, it is detected and counted once
-- ↩️ **Undo anytime**: remove a wrong migration in one click without touching other installed skills
-- 📦 **Copied, never moved**: DSH gets its own copy; the original agent keeps working as before
-- 🧹 **Auto normalization**: non-standard skill names are fixed to a format DSH understands
-- 🌍 **All three OSes**: macOS / Linux / Windows
+- 🔍 **自动扫描**：打开页面就能看到电脑上所有 Agent 都装了哪些技能，一目了然
+- ☑️ **勾选即迁移**：想搬哪个勾哪个，一次可以搬几十个
+- 🧩 **同名自动合并**：同一个技能在多个 Agent 里都有时，只装一份，来源随便你选
+- 🔗 **不会重复搬运**：好几个 Agent 其实用的是同一份技能，这种情况会自动识别，只算一次
+- ↩️ **随时反悔**：迁移错了可以一键移除，不影响其他已安装的技能
+- 📦 **原样复制，原目录不动**：DSH 里是独立副本，原 Agent 照常使用
+- 🧹 **自动整理**：不规范的技能名会自动改成 DSH 认识的格式，保证迁移后可用
+- 🌍 **三大系统都支持**：macOS / Linux / Windows
 
-## Supported platforms
-
-| Platform | Skill dir (macOS/Linux) | Windows |
+| 平台 | 技能目录（macOS/Linux） | Windows |
 |---|---|---|
-| Shared layer (native to DSH) | `~/.agents/skills` | `C:\Users\<username>\.agents\skills` |
-| Codex | `~/.codex/skills` | `C:\Users\<username>\.codex\skills` |
-| Claude Code | `~/.claude/skills` | `C:\Users\<username>\.claude\skills` |
-| Cursor | `~/.cursor/skills` | `C:\Users\<username>\.cursor\skills` |
-| OpenCode | `~/.config/opencode/skills` | `C:\Users\<username>\.config\opencode\skills` |
-| Hermes Agent | `~/.hermes/skills` | `C:\Users\<username>\AppData\Local\hermes\skills` |
-| OpenClaw | `~/.openclaw/skills` | `C:\Users\<username>\.openclaw\skills` |
-| Kimi Code CLI | `~/.kimi/skills` | `C:\Users\<username>\.kimi\skills` |
-| Trae (international) | `~/.trae/skills` | `C:\Users\<username>\.trae\skills` |
-| Trae CN (China) | `~/.trae-cn/skills` | `C:\Users\<username>\.trae-cn\skills` |
-| CodeBuddy | `~/.codebuddy/skills` | `C:\Users\<username>\.codebuddy\skills` |
-| Qwen Code | `~/.qwen/skills` | `C:\Users\<username>\.qwen\skills` |
-| Qoder CLI | `~/.qoder/skills` | `C:\Users\<username>\.qoder\skills` |
-| Qoder CN CLI | `~/.qoder-cn/skills` | `C:\Users\<username>\.qoder-cn\skills` |
-| QoderWork | `~/.qoderwork/skills` | `C:\Users\<username>\.qoderwork\skills` |
+| 共享层（DSH 原生） | `~/.agents/skills` | `C:\Users\<用户名>\.agents\skills` |
+| Codex | `~/.codex/skills` | `C:\Users\<用户名>\.codex\skills` |
+| Claude Code | `~/.claude/skills` | `C:\Users\<用户名>\.claude\skills` |
+| Cursor | `~/.cursor/skills` | `C:\Users\<用户名>\.cursor\skills` |
+| OpenCode | `~/.config/opencode/skills` | `C:\Users\<用户名>\.config\opencode\skills` |
+| Hermes Agent | `~/.hermes/skills` | `C:\Users\<用户名>\AppData\Local\hermes\skills` |
+| OpenClaw | `~/.openclaw/skills` | `C:\Users\<用户名>\.openclaw\skills` |
+| Kimi Code CLI | `~/.kimi/skills` | `C:\Users\<用户名>\.kimi\skills` |
+| Trae（国际版） | `~/.trae/skills` | `C:\Users\<用户名>\.trae\skills` |
+| Trae CN（国内版） | `~/.trae-cn/skills` | `C:\Users\<用户名>\.trae-cn\skills` |
+| CodeBuddy | `~/.codebuddy/skills` | `C:\Users\<用户名>\.codebuddy\skills` |
+| Qwen Code | `~/.qwen/skills` | `C:\Users\<用户名>\.qwen\skills` |
+| Qoder CLI | `~/.qoder/skills` | `C:\Users\<用户名>\.qoder\skills` |
+| Qoder CN CLI | `~/.qoder-cn/skills` | `C:\Users\<用户名>\.qoder-cn\skills` |
+| QoderWork | `~/.qoderwork/skills` | `C:\Users\<用户名>\.qoderwork\skills` |
 
-> All paths verified against official docs or source code. See [`docs/agent-skills-migration-research.md`](docs/agent-skills-migration-research.md) for details.
+> 路径均经过官方文档或源码核实，详见 [`docs/agent-skills-migration-research.md`](docs/agent-skills-migration-research.md)。
 
-## Install
+## 安装
 
-Send the repository link to your DSH assistant and say "install this plugin and run it":
+把仓库链接发给你的 DSH 助手，说一句「帮我安装这个插件并运行」即可：
 
-1. In a DSH conversation, send: `https://github.com/mjylfz/dsh-skill-mover`
-2. Tell the assistant: **"Install this plugin and run it"**
-3. The assistant reads the plugin files from the repo and loads them; after you approve, open **Settings → Skill Mover** to use it
+1. 在 DSH 对话中发送：`https://github.com/mjylfz/dsh-skill-mover`
+2. 告诉助手：**「帮我安装这个插件并运行」**
+3. 助手会自动读取仓库里的插件文件并加载；批准运行请求后，打开 **设置 → Skill 迁移** 即可使用
 
-## Usage
 
-1. Open **Settings → Skill Mover**
-2. The page scans skill directories of every agent on your machine, grouped by platform
-3. Expand a platform card to see its skill list, check the skills to migrate (same-name skills from multiple platforms can expand to switch source)
-4. Click **"Migrate N selected skills"** at the bottom (copy mode: DSH gets an independent copy; the original directory is not affected)
-5. DSH discovers new skills automatically — **no restart needed**; the results page offers "Remove this migration" for rollback
+## 使用
 
-### Interaction rules
+1. 打开 **设置 → Skill 迁移**
+2. 页面自动扫描本机各 Agent 的技能目录，按平台分组展示
+3. 展开平台卡片查看技能列表，勾选要迁移的技能（同名多来源技能可展开切换来源）
+4. 点底部「迁移所选 N 个技能」（固定复制模式：DSH 内是独立副本，原目录删除不受影响）
+5. 迁移完成后 DSH 自动发现新技能，**无需重启**；结果页可「移除本次迁移」回滚
 
-- Shared-layer skills marked "native to DSH" are checked by default — nothing to do, DSH can already use them
-- When the same skill exists on several platforms, checking it on any platform selects that platform as the source; all platform sections stay in sync
-- Skills already present in DSH are unchecked by default to avoid duplicates (check "Overwrite installed" to update)
-- Skills that are literally the same file as the shared layer (e.g. symlinked there) are unchecked by default — migrating them would just duplicate
+### 交互规则
 
-### Is it usable right after migration?
+- 标着「DSH 原生支持」的共享层技能默认就是勾选状态，不用管它——DSH 本来就能直接用
+- 同一个技能在多个平台都有时，勾选任何一个平台的版本，就等于选了那个平台的来源，其他平台栏会同步变化
+- 已经在 DSH 里的技能默认不勾选，避免重复安装（想更新覆盖就勾「覆盖已安装」）
+- 和共享层其实是同一份的技能（比如只是链接过去的）默认不勾选，搬了也是重复
 
-Yes. A skill is "instructions + bundled assets", not an installer. After migration:
+### 迁移后能不能直接用？
 
-- **DSH recognizes it immediately**: the AI automatically opens the instructions when it hits a related task — no extra steps from you (verified with DSH's own discovery)
-- **Some skills need libraries**: e.g. Python or Node packages. DSH will not silently run install commands (to keep untrusted skills from installing things). If a skill really needs such libraries, the AI installs them per the skill's own instructions, and the results page lists skills with dependency declarations so you can install manually when needed
+能。技能是一份「说明书 + 配套素材」，不是安装包。迁移后：
 
-## FAQ
+- **DSH 马上就能认出它**：AI 在遇到相关任务时，会自动打开这份说明书照着做，不需要你额外操作（已经实测验证）
+- **个别技能需要程序库**：比如要用到 Python 的库、Node 的包。DSH 不会偷偷执行安装命令（防止来源不可信的技能乱装东西）。如果技能确实需要这些库，AI 会按说明书自己安装；迁移结果页也会提示你哪些技能带了依赖声明，必要时手动装一次即可
 
-**Q: How do I use a skill after migration? Do I need to do anything?**
+## 常见问题
 
-Nothing extra. DSH recognizes migrated skills automatically and the AI calls them when relevant. You can also just say it, e.g. "use baoyu-cover-image to make a cover for this post". If a skill does not trigger by itself, explicitly say "please use the xx skill".
+**Q: 迁移后怎么使用这个技能？需要额外操作吗？**
 
-**Q: Does migration affect the original agent?**
+不需要额外操作。迁移后 DSH 会自动识别技能，AI 在遇到相关任务时会自动调用。你也可以直接说，例如「用 baoyu-cover-image 给这篇文章生成封面」。如果技能没有自动触发，明确说一句「请使用 xx 技能」即可。
 
-No. Migration copies; it does not move. The original directory stays untouched and the original agent keeps working.
+**Q: 迁移会影响原来的 Agent 吗？**
 
-**Q: The same skill exists on multiple platforms — will it be installed twice?**
+不会。迁移是复制，不是移动。原目录原样保留，原来的 Agent 照常使用。
 
-No. Same-name skills are merged into one group and installed once; you pick the source (shared layer or the highest-priority source by default).
+**Q: 同一个技能在多个平台都有，会装重复吗？**
 
-**Q: The skill is missing or not working after migration?**
+不会。同名技能会合并成一组，只迁移一份，来源可以自己选（默认推荐共享层或优先级最高的来源）。
 
-Check whether the skill appears under `~/.dsh/skills/`; make sure its instruction file is well-formed (the plugin fixes non-standard names automatically during migration); then try a new session.
+**Q: 迁移后技能找不到或不生效怎么办？**
 
-**Q: Do skills need dependencies (pip / npm) installed?**
+先看技能是否出现在 `~/.dsh/skills/` 目录下；再确认技能的说明文件格式没问题（插件迁移时会自动修正不规范的名字）；最后开一个新会话再试。
 
-Depends on the skill. Pure instruction skills work immediately; skills with script dependencies are installed by the AI per the skill's instructions, or manually per the migration results page. The plugin never runs install scripts itself (safety).
+**Q: 技能需要安装依赖（pip / npm）吗？**
 
-**Q: How do I undo a migration?**
+看技能本身。纯指令型技能直接可用；带脚本依赖的技能，AI 会按技能的说明自动安装，或者按迁移结果页的提示手动安装。插件不会自动执行安装脚本（安全考虑）。
 
-On the results page click "Remove this migration" — the migrated skills are deleted, the original directories are untouched.
+**Q: 怎么撤销迁移？**
 
-**Q: Does it support Windows?**
+迁移结果页点「移除本次迁移」，本次迁移的技能会被删除，原目录不受影响。
 
-Yes. Path rules, copy commands (robocopy) and linking (junction) are adapted for Windows.
+**Q: Windows 支持吗？**
 
-## Repository structure
+支持。路径规则、复制命令（robocopy）和链接方式（junction）都已按 Windows 适配。
+
+## 项目结构
 
 ```
 dsh-skill-mover/
-├── skill-migrator-host.js      # Plugin host half: scan / conflict planning / migration / RPC
-├── skill-migrator-client.js    # Plugin client half: settings UI (settings.section)
+├── skill-migrator-host.js      # 插件 Host 半：扫描 / 冲突规划 / 迁移执行 / RPC
+├── skill-migrator-client.js    # 插件 Client 半：设置页 UI（settings.section）
 ├── docs/
-│   ├── agent-skills-migration-research.md   # Research on 15 platforms' skill directories
-│   └── dsh-skill-migrator-design.md         # Design doc (architecture / conflict strategy / Windows notes)
+│   ├── agent-skills-migration-research.md   # 15 个平台技能目录调研
+│   └── dsh-skill-migrator-design.md         # 完整设计文档（架构 / 冲突策略 / Windows 验证）
 ```
 
-## Development & testing
+## 开发与测试
 
-Pure JavaScript, no build step; the host half has zero external dependencies (hand-written frontmatter parser and path utilities) and works through DSH's `ctx.fs` / `ctx.shell` services.
+插件为纯 JavaScript（无构建步骤），Host 侧无外部依赖（手写 frontmatter 解析器、路径工具），通过 DSH 的 `ctx.fs` / `ctx.shell` 服务工作。
 
-Local regression tests run `runScan` / `runMigrate` / `runRemove` against mock `fs`/`shell` services over the real filesystem, then verify migrated skills are discoverable and fully loadable using DSH's official `dsh-skill-filesystem` provider (verified).
+本地回归测试方法：用 mock 的 `fs`/`shell` 服务 + 真实文件系统运行 `runScan` / `runMigrate` / `runRemove`，并用 DSH 官方 `dsh-skill-filesystem` 发现器验证迁移后的技能可被发现、可完整加载（已实测通过）。
 
-## License
+## 许可证
 
 [MIT](LICENSE)
