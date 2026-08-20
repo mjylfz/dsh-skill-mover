@@ -47,11 +47,15 @@ Settings → Skill Mover: skills found on your machine are grouped by platform, 
 
 ## Install
 
-Send the repository link to your DSH assistant and say "install this plugin and run it":
+**One command, permanent install (recommended)**:
 
-1. In a DSH conversation, send: `https://github.com/mjylfz/dsh-skill-mover`
-2. Tell the assistant: **"Install this plugin and run it"**
-3. The assistant reads the plugin files from the repo and loads them; after you approve, open **Settings → Skill Mover** to use it
+```sh
+dsh plugin --profile web add github:mjylfz/dsh-skill-mover
+```
+
+Restart DSH after installing, then open **Settings → Skill Mover**.
+
+**Try it without installing (session-scoped)**: send the repo link `https://github.com/mjylfz/dsh-skill-mover` to your DSH assistant and say "install this plugin and run it". The assistant reads the plugin files and loads them; after you approve, use it from **Settings → Skill Mover** (session-scoped plugins need to be reloaded after a restart).
 
 ## Usage
 

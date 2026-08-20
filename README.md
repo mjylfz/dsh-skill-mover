@@ -45,11 +45,15 @@
 
 ## 安装
 
-把仓库链接发给你的 DSH 助手，说一句「帮我安装这个插件并运行」即可：
+**一条命令永久安装（推荐）**：
 
-1. 在 DSH 对话中发送：`https://github.com/mjylfz/dsh-skill-mover`
-2. 告诉助手：**「帮我安装这个插件并运行」**
-3. 助手会自动读取仓库里的插件文件并加载；批准运行请求后，打开 **设置 → Skill 迁移** 即可使用
+```sh
+dsh plugin --profile web add github:mjylfz/dsh-skill-mover
+```
+
+安装完成后重启 DSH，打开 **设置 → Skill 迁移** 即可使用。
+
+**免安装试用（会话级）**：把仓库链接 `https://github.com/mjylfz/dsh-skill-mover` 发给你的 DSH 助手，说「帮我安装这个插件并运行」，助手会自动读取插件文件并加载；批准运行后同样在 **设置 → Skill 迁移** 使用（会话级插件重启后需重新加载）。
 
 
 ## 使用
