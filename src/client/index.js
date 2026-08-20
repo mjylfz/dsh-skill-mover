@@ -406,10 +406,15 @@ export default {
   inject: ['slots', 'remote'],
   async apply(ctx) {
     // $mount 是异步的:它把 descriptors 注册进 typert.remotes 并安装
-    // remote.skillMover 命名空间服务。不等它的话 ctx.remote.skillMover
-    // 还是 undefined,调用时就会报 "Cannot read properties of undefined (reading 'scan')"。
+    // remote.skillMover 命名空间服务。不等它的话命名空间还不存在。
+    //
+    // 必须用 ctx.get('remote.skillMover') 读取,不能用
+    // ctx.remote.skillMover:后者走 fiber 链解析,而命名空间服务由
+    // api-gateway client 的上下文提供,我们是旁支 entry,解析不到,
+    // 会抛 "cannot get property "remote.skillMover" without inject",
+    // 导致整个 client boot 失败(Desktop 直接打不开)。
     await ctx.remote.$mount(SKILL_MOVER_REMOTE);
-    const remote = ctx.remote.skillMover;
+    const remote = ctx.get('remote.skillMover');
     const api = {
       scan: async (args) => unwrap(await remote.scan(args || {})),
       migrate: async (args) => unwrap(await remote.migrate(args || {})),

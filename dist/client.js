@@ -557,7 +557,7 @@ var index_default = {
   inject: ["slots", "remote"],
   async apply(ctx) {
     await ctx.remote.$mount(SKILL_MOVER_REMOTE);
-    const remote = ctx.remote.skillMover;
+    const remote = ctx.get("remote.skillMover");
     const api = {
       scan: async (args) => unwrap(await remote.scan(args || {})),
       migrate: async (args) => unwrap(await remote.migrate(args || {})),
