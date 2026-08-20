@@ -4,18 +4,22 @@
 
 支持 Cursor / Claude Code / Codex / OpenCode / Hermes / OpenClaw / Kimi / Trae / Trae CN / CodeBuddy / Qwen Code / Qoder / Qoder CN / QoderWork 等 14 个平台的技能目录扫描与迁移，自动识别共享层（`~/.agents/skills`）、处理同名冲突、去重软链接，迁移后 DSH 自动发现并可直接使用。
 
+## 界面预览
+
+![Skill 迁移主界面](assets/screenshot-main.png)
+
+设置 → Skill 迁移：按平台分组展示本机扫描到的技能，勾选后一键迁移。
+
 ## 功能特性
 
-- **一键迁移**：扫描本机所有主流 Agent 的技能目录，按平台分组展示，勾选后批量复制到 `~/.dsh/skills/`
-- **共享层识别**：`~/.agents/skills` 的技能 DSH 原生可用，自动标记「DSH 原生支持」，不重复迁移
-- **冲突处理**：同名技能（多平台都有）合并为一组，默认推荐优先级最高的来源，可展开切换来源，所有平台栏勾选状态全局同步
-- **软链接去重**：Claude Code / OpenClaw 等平台的软链接技能自动解析真实路径，避免重复搬运
-- **自动规范命名**：frontmatter name 不符合 kebab-case 的自动改写，保证 DSH 可识别
-- **完整溯源与回滚**：迁移写入 `_skillhub_meta.json` + 迁移日志，可一键「移除本次迁移」
-- **依赖检测**：识别 `requirements.txt` / `package.json` / `install.sh` 等依赖声明并在结果页提示（不自动执行，安全）
-- **跨平台**：macOS / Linux / Windows（Windows 用 PowerShell + robocopy / junction，路径规则已按平台分支）
-
-## 支持的 Agent 平台
+- 🔍 **自动扫描**：打开页面就能看到电脑上所有 Agent 都装了哪些技能，一目了然
+- ☑️ **勾选即迁移**：想搬哪个勾哪个，一次可以搬几十个
+- 🧩 **同名自动合并**：同一个技能在多个 Agent 里都有时，只装一份，来源随便你选
+- 🔗 **不会重复搬运**：指向同一份技能的软链接会自动识别
+- ↩️ **随时反悔**：迁移错了可以一键移除，不影响其他已安装的技能
+- 📦 **原样复制，原目录不动**：DSH 里是独立副本，原 Agent 照常使用
+- 🧹 **自动整理**：不规范的技能名会自动改成 DSH 认识的格式，保证迁移后可用
+- 🌍 **三大系统都支持**：macOS / Linux / Windows
 
 | 平台 | 技能目录（macOS/Linux） | Windows |
 |---|---|---|
@@ -36,6 +40,8 @@
 | QoderWork | `~/.qoderwork/skills` | `%USERPROFILE%\.qoderwork\skills` |
 
 > 路径均经过官方文档或源码核实，详见 [`docs/agent-skills-migration-research.md`](docs/agent-skills-migration-research.md)。
+>
+> **Windows 路径说明**：`%USERPROFILE%` 是 Windows 的用户主目录（等价于 `C:\Users\你的用户名`），`\` 是 Windows 的路径分隔符；`%LOCALAPPDATA%` 等价于 `C:\Users\你的用户名\AppData\Local`。
 
 ## 安装
 
@@ -74,6 +80,36 @@
 
 - **指令层面**：迁移后 DSH 立即识别并加载，模型可在合适时机自动使用（`modelInvocable: true`）——已实测（用 DSH 官方发现器验证）
 - **脚本依赖**：DSH 不会自动执行 `npm install` / `pip install`（安全设计）。若技能的脚本依赖第三方包，模型会在运行时按 SKILL.md 指示自行安装；依赖声明会在迁移结果页提示
+
+## 常见问题
+
+**Q: 迁移后怎么使用这个技能？需要额外操作吗？**
+
+不需要额外操作。迁移后 DSH 会自动识别技能，AI 在遇到相关任务时会自动调用。你也可以直接说，例如「用 baoyu-cover-image 给这篇文章生成封面」。如果技能没有自动触发，明确说一句「请使用 xx 技能」即可。
+
+**Q: 迁移会影响原来的 Agent 吗？**
+
+不会。迁移是复制，不是移动。原目录原样保留，原来的 Agent 照常使用。
+
+**Q: 同一个技能在多个平台都有，会装重复吗？**
+
+不会。同名技能会合并成一组，只迁移一份，来源可以自己选（默认推荐共享层或优先级最高的来源）。
+
+**Q: 迁移后技能找不到或不生效怎么办？**
+
+先看技能是否出现在 `~/.dsh/skills/` 目录下；再确认它的 `SKILL.md` 有规范的 `name`（小写短横线）和 `description`（插件迁移时会自动修正不合规的名字）；最后开一个新会话再试（技能按会话生效）。
+
+**Q: 技能需要安装依赖（pip / npm）吗？**
+
+看技能本身。纯指令型技能直接可用；带脚本依赖的技能，AI 会按技能的说明自动安装，或者按迁移结果页的提示手动安装。插件不会自动执行安装脚本（安全考虑）。
+
+**Q: 怎么撤销迁移？**
+
+迁移结果页点「移除本次迁移」，本次迁移的技能会被删除，原目录不受影响。
+
+**Q: Windows 支持吗？**
+
+支持。路径规则、复制命令（robocopy）和链接方式（junction）都已按 Windows 适配。
 
 ## 项目结构
 
