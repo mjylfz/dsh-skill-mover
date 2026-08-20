@@ -48,9 +48,6 @@
 2. 告诉助手：**「帮我安装这个插件并运行」**
 3. 助手会自动读取仓库里的插件文件并加载；批准运行请求后，打开 **设置 → Skill 迁移** 即可使用
 
-> 手动方式（备用）：把 [`skill-migrator-host.js`](skill-migrator-host.js) 与 [`skill-migrator-client.js`](skill-migrator-client.js) 两个文件内容直接提供给助手，再让它安装运行。
->
-> 说明：这是 DSH 的动态插件（会话级），加载时需要授权确认，进程重启后需要重新加载。未来可打包为 `dsh.bundle.patch` 标准 bundle 实现持久安装（见 [安装方式说明](https://github.com/0xsline/awesome-deepseek-harness#install)）。
 
 ## 使用
 
