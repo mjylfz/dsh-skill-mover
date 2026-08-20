@@ -68,16 +68,22 @@ let SkillMoverGateway = (() => {
             super(ctx, 'skillMover');
             this.core = createCore(ctx);
         }
-        /** Scan all agent skill directories and build conflict groups. */
-        async scan(input = {}) {
+        /**
+         * Scan all agent skill directories and build conflict groups.
+         *
+         * Note: parameters must be plain identifiers without defaults — the Typert
+         * gateway derives wire signatures by parsing the method source, and
+         * defaults/destructuring make it throw `signature-invalid`.
+         */
+        async scan(input) {
             return await this.core.runScan(input?.overrides ?? {});
         }
         /** Migrate the selected skills (copy mode). */
-        async migrate(input = {}) {
+        async migrate(input) {
             return await this.core.runMigrate(input ?? {});
         }
         /** Remove previously migrated skills (rollback). */
-        async remove(input = {}) {
+        async remove(input) {
             return await this.core.runRemove(input ?? {});
         }
     };

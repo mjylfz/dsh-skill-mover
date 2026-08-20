@@ -556,7 +556,7 @@ function renderSkillRow(h, slug, group, selected, openConflict, toggle, pickSour
 var index_default = {
   inject: ["slots", "remote"],
   async apply(ctx) {
-    ctx.remote.$mount(SKILL_MOVER_REMOTE);
+    await ctx.remote.$mount(SKILL_MOVER_REMOTE);
     const remote = ctx.remote.skillMover;
     const api = {
       scan: async (args) => unwrap(await remote.scan(args || {})),

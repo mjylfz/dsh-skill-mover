@@ -22,21 +22,27 @@ export default class SkillMoverGateway extends TypertRemoteService {
     this.core = createCore(ctx);
   }
 
-  /** Scan all agent skill directories and build conflict groups. */
+  /**
+   * Scan all agent skill directories and build conflict groups.
+   *
+   * Note: parameters must be plain identifiers without defaults — the Typert
+   * gateway derives wire signatures by parsing the method source, and
+   * defaults/destructuring make it throw `signature-invalid`.
+   */
   @Remote('scan')
-  async scan(input: { overrides?: Record<string, string[]> } = {}) {
+  async scan(input: { overrides?: Record<string, string[]> }) {
     return await this.core.runScan(input?.overrides ?? {});
   }
 
   /** Migrate the selected skills (copy mode). */
   @Remote('migrate')
-  async migrate(input: { selections?: Array<{ slug: string; sourceIndex?: number }>; mode?: string; overwrite?: boolean } = {}) {
+  async migrate(input: { selections?: Array<{ slug: string; sourceIndex?: number }>; mode?: string; overwrite?: boolean }) {
     return await this.core.runMigrate(input ?? {});
   }
 
   /** Remove previously migrated skills (rollback). */
   @Remote('remove')
-  async remove(input: { slugs?: string[] } = {}) {
+  async remove(input: { slugs?: string[] }) {
     return await this.core.runRemove(input ?? {});
   }
 }

@@ -405,7 +405,10 @@ function renderSkillRow(h, slug, group, selected, openConflict, toggle, pickSour
 export default {
   inject: ['slots', 'remote'],
   async apply(ctx) {
-    ctx.remote.$mount(SKILL_MOVER_REMOTE);
+    // $mount 是异步的:它把 descriptors 注册进 typert.remotes 并安装
+    // remote.skillMover 命名空间服务。不等它的话 ctx.remote.skillMover
+    // 还是 undefined,调用时就会报 "Cannot read properties of undefined (reading 'scan')"。
+    await ctx.remote.$mount(SKILL_MOVER_REMOTE);
     const remote = ctx.remote.skillMover;
     const api = {
       scan: async (args) => unwrap(await remote.scan(args || {})),
