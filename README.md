@@ -53,12 +53,6 @@
 
 > 动态插件是会话级能力，进程重启后需要重新加载。未来可打包为 `dsh.bundle.patch` 标准 bundle 实现持久安装（见 [安装方式说明](https://github.com/0xsline/awesome-deepseek-harness#install)）。
 
-## 界面预览
-
-![Skill 迁移主界面](assets/screenshot-main.png)
-
-设置 → Skill 迁移：按平台分组展示本机扫描到的技能，勾选后一键迁移。
-
 ## 使用
 
 1. 打开 **设置 → Skill 迁移**
