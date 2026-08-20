@@ -2,7 +2,7 @@
  * DSH Skill Mover — bundle host half.
  *
  * Exposes a Typert Remote service (`skillMover`) with three endpoints
- * (scan / migrate / remove) that the browser client half calls. The actual
+ * (scan / migrate / uninstall) that the browser client half calls. The actual
  * scanning and migration logic lives in lib/core.js (shared with the
  * dynamic-plugin version of this plugin).
  *
@@ -40,9 +40,16 @@ export default class SkillMoverGateway extends TypertRemoteService {
     return await this.core.runMigrate(input ?? {});
   }
 
-  /** Remove previously migrated skills (rollback). */
-  @Remote('remove')
-  async remove(input: { slugs?: string[] }) {
+  /**
+   * Remove previously migrated skills (rollback).
+   *
+   * Note: the wire name must NOT be `remove` — the client-side
+   * RemoteNamespaceService already owns a `remove` method, and mounting a
+   * remote method with the same name fails client validation with
+   * "method ... conflicts with its namespace service".
+   */
+  @Remote('uninstall')
+  async uninstall(input: { slugs?: string[] }) {
     return await this.core.runRemove(input ?? {});
   }
 }

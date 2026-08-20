@@ -56,10 +56,10 @@ var SKILL_MOVER_REMOTE = {
       result: { mode: "strict", typeSymbol: "json", schema: { parse: (v) => v } }
     },
     {
-      id: "dsh-skill-mover#skillMover/remove",
+      id: "dsh-skill-mover#skillMover/uninstall",
       service: "skillMover",
       namespace: "skillMover",
-      method: "remove",
+      method: "uninstall",
       invocation: { kind: "direct" },
       parameters: [{ name: "input", wire: "input", source: "json", codec: { mode: "strict", typeSymbol: "json", schema: { parse: (v) => v } } }],
       result: { mode: "strict", typeSymbol: "json", schema: { parse: (v) => v } }
@@ -561,7 +561,7 @@ var index_default = {
     const api = {
       scan: async (args) => unwrap(await remote.scan(args || {})),
       migrate: async (args) => unwrap(await remote.migrate(args || {})),
-      remove: async (args) => unwrap(await remote.remove(args || {}))
+      remove: async (args) => unwrap(await remote.uninstall(args || {}))
     };
     if (typeof document !== "undefined" && document.querySelector('style[data-plugin-css="dsh-skill-mover"]') === null) {
       const tag = document.createElement("style");

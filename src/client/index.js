@@ -413,7 +413,7 @@ export default {
     const api = {
       scan: async (args) => unwrap(await remote.scan(args || {})),
       migrate: async (args) => unwrap(await remote.migrate(args || {})),
-      remove: async (args) => unwrap(await remote.remove(args || {})),
+      remove: async (args) => unwrap(await remote.uninstall(args || {})),
     };
     if (typeof document !== 'undefined' && document.querySelector('style[data-plugin-css="dsh-skill-mover"]') === null) {
       const tag = document.createElement('style');

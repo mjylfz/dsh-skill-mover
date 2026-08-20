@@ -1,6 +1,6 @@
 {
   "name": "dsh-skill-mover",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "把其他 Agent 的技能一键搬进 DeepSeek Harness：支持 14 个平台 + 共享层识别、同名技能合并、不重复搬运、可回滚。DSH 技能搬家插件 (skill mover).",
   "type": "module",
   "main": "dist/index.js",

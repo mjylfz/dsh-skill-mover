@@ -36,7 +36,7 @@ var __esDecorate = (this && this.__esDecorate) || function (ctor, descriptorIn, 
  * DSH Skill Mover — bundle host half.
  *
  * Exposes a Typert Remote service (`skillMover`) with three endpoints
- * (scan / migrate / remove) that the browser client half calls. The actual
+ * (scan / migrate / uninstall) that the browser client half calls. The actual
  * scanning and migration logic lives in lib/core.js (shared with the
  * dynamic-plugin version of this plugin).
  *
@@ -51,16 +51,16 @@ let SkillMoverGateway = (() => {
     let _instanceExtraInitializers = [];
     let _scan_decorators;
     let _migrate_decorators;
-    let _remove_decorators;
+    let _uninstall_decorators;
     return class SkillMoverGateway extends _classSuper {
         static {
             const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(_classSuper[Symbol.metadata] ?? null) : void 0;
             _scan_decorators = [Remote('scan')];
             _migrate_decorators = [Remote('migrate')];
-            _remove_decorators = [Remote('remove')];
+            _uninstall_decorators = [Remote('uninstall')];
             __esDecorate(this, null, _scan_decorators, { kind: "method", name: "scan", static: false, private: false, access: { has: obj => "scan" in obj, get: obj => obj.scan }, metadata: _metadata }, null, _instanceExtraInitializers);
             __esDecorate(this, null, _migrate_decorators, { kind: "method", name: "migrate", static: false, private: false, access: { has: obj => "migrate" in obj, get: obj => obj.migrate }, metadata: _metadata }, null, _instanceExtraInitializers);
-            __esDecorate(this, null, _remove_decorators, { kind: "method", name: "remove", static: false, private: false, access: { has: obj => "remove" in obj, get: obj => obj.remove }, metadata: _metadata }, null, _instanceExtraInitializers);
+            __esDecorate(this, null, _uninstall_decorators, { kind: "method", name: "uninstall", static: false, private: false, access: { has: obj => "uninstall" in obj, get: obj => obj.uninstall }, metadata: _metadata }, null, _instanceExtraInitializers);
             if (_metadata) Object.defineProperty(this, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
         }
         core = __runInitializers(this, _instanceExtraInitializers);
@@ -82,8 +82,15 @@ let SkillMoverGateway = (() => {
         async migrate(input) {
             return await this.core.runMigrate(input ?? {});
         }
-        /** Remove previously migrated skills (rollback). */
-        async remove(input) {
+        /**
+         * Remove previously migrated skills (rollback).
+         *
+         * Note: the wire name must NOT be `remove` — the client-side
+         * RemoteNamespaceService already owns a `remove` method, and mounting a
+         * remote method with the same name fails client validation with
+         * "method ... conflicts with its namespace service".
+         */
+        async uninstall(input) {
             return await this.core.runRemove(input ?? {});
         }
     };
