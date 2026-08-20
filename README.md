@@ -40,7 +40,8 @@
 | QoderWork | `~/.qoderwork/skills` | `C:\Users\<用户名>\.qoderwork\skills` |
 
 > 路径均经过官方文档或源码核实，详见 [`docs/agent-skills-migration-research.md`](docs/agent-skills-migration-research.md)。
->## 安装
+
+## 安装
 
 把仓库链接发给你的 DSH 助手，说一句「帮我安装这个插件并运行」即可：
 
