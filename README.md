@@ -1,4 +1,4 @@
-# DSH Skill Migrator（技能迁移插件）
+# DSH Skill Mover（技能搬家助手）
 
 把电脑上其他 Agent 已经装好的技能，一键搬进 DeepSeek Harness。
 
@@ -45,7 +45,7 @@
 
 把仓库链接发给你的 DSH 助手，说一句「帮我安装这个插件并运行」即可：
 
-1. 在 DSH 对话中发送：`https://github.com/mjylfz/dsh-skill-migrator`
+1. 在 DSH 对话中发送：`https://github.com/mjylfz/dsh-skill-mover`
 2. 告诉助手：**「帮我安装这个插件并运行」**
 3. 助手会自动读取仓库里的插件文件并加载；批准运行请求后，打开 **设置 → Skill 迁移** 即可使用
 
@@ -105,7 +105,7 @@
 ## 项目结构
 
 ```
-dsh-skill-migrator/
+dsh-skill-mover/
 ├── skill-migrator-host.js      # 插件 Host 半：扫描 / 冲突规划 / 迁移执行 / RPC
 ├── skill-migrator-client.js    # 插件 Client 半：设置页 UI（settings.section）
 ├── docs/
