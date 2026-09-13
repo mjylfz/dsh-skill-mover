@@ -18,7 +18,9 @@
     "cordis.patch.yml"
   ],
   "scripts": {
-    "build": "node build.mjs"
+    "build": "node build.mjs",
+    "test": "npm run build && npm run test:remote-descriptor",
+    "test:remote-descriptor": "ELECTRON_RUN_AS_NODE=1 \"/Applications/DSH Desktop.app/Contents/MacOS/DSH Desktop\" test/remote-descriptor.test.mjs"
   },
   "dsh": {
     "bundle": {
@@ -30,11 +32,11 @@
   },
   "peerDependencies": {
     "@deepseek-ai/cordis": "^4.0.1",
-    "@deepseek-ai/dsh-typert-protocol": "^0.1.0-rc.6"
+    "@deepseek-ai/dsh-typert-protocol": "^0.1.0-rc.6 || ^0.1.5-rc.1"
   },
   "devDependencies": {
     "@deepseek-ai/cordis": "^4.0.1",
-    "@deepseek-ai/dsh-typert-protocol": "^0.1.0-rc.6",
+    "@deepseek-ai/dsh-typert-protocol": "^0.1.0-rc.6 || ^0.1.5-rc.1",
     "@types/node": "^20.19.43",
     "esbuild": "^0.25.12",
     "typescript": "^5.9.3"

@@ -14,5 +14,5 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/index.ts", "src/core.js"]
+  "include": ["src/index.ts", "src/core.js", "src/remote-descriptor.ts"]
 }
