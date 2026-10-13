@@ -1,6 +1,6 @@
 {
   "name": "dsh-skill-mover",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "把其他 Agent 的技能一键搬进 DeepSeek Harness：支持 14 个平台 + 共享层识别、同名技能合并、不重复搬运、可回滚。DSH 技能搬家插件 (skill mover).",
   "repository": {
     "type": "git",
@@ -35,8 +35,11 @@
   ],
   "scripts": {
     "build": "node build.mjs",
-    "test": "npm run build && npm run test:remote-descriptor",
-    "test:remote-descriptor": "ELECTRON_RUN_AS_NODE=1 \"/Applications/DSH Desktop.app/Contents/MacOS/DSH Desktop\" test/remote-descriptor.test.mjs"
+    "test": "npm run build && npm run test:host-core && npm run test:runtime-compat && npm run test:remote-descriptor && npm run test:client-boot",
+    "test:host-core": "node test/host-core.test.mjs",
+    "test:runtime-compat": "ELECTRON_RUN_AS_NODE=1 \"/Applications/DSH Desktop.app/Contents/MacOS/DSH Desktop\" test/runtime-compat.test.mjs",
+    "test:remote-descriptor": "ELECTRON_RUN_AS_NODE=1 \"/Applications/DSH Desktop.app/Contents/MacOS/DSH Desktop\" test/remote-descriptor.test.mjs",
+    "test:client-boot": "ELECTRON_RUN_AS_NODE=1 \"/Applications/DSH Desktop.app/Contents/MacOS/DSH Desktop\" test/client-boot.mjs"
   },
   "dsh": {
     "bundle": {
@@ -48,7 +51,7 @@
   },
   "peerDependencies": {
     "@deepseek-ai/cordis": "^4.0.1",
-    "@deepseek-ai/dsh-typert-protocol": "^0.1.0-rc.6 || ^0.1.5-rc.1"
+    "@deepseek-ai/dsh-typert-protocol": "^0.1.0-rc.6 || >=0.2.0-rc.1 <0.3.0-0"
   },
   "devDependencies": {
     "@deepseek-ai/cordis": "^4.0.1",

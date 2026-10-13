@@ -1,3 +1,6 @@
 node_modules/
 *.log
 .DS_Store
+# Release tarballs stay on disk next to their predecessor builds; `dist/` is
+# committed, so the tarball itself is a build product, not source.
+*.tgz

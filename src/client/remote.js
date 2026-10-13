@@ -7,6 +7,38 @@
  * Each method takes one flat JSON parameter (`input`) and returns a
  * `RemoteResult` envelope, unwrapped by `unwrap()`.
  */
+/**
+ * Build one strict codec for an unconstrained JSON wire value.
+ *
+ * The two gateway generations shape a strict codec differently, and the
+ * 0.2.x registry hard-rejects the old spelling:
+ *
+ *  - old (≤ 0.1.x): `{ mode: 'strict', typeSymbol, schema }` — nothing read it,
+ *    the shape was decorative.
+ *  - new (0.2.x):   `{ mode: 'strict', typeSymbol, create }`, where `create` is
+ *    a *factory* returning the schema. `validateCodec()` in
+ *    `@deepseek-ai/dsh-typert-registry` throws
+ *    `typert: <id> ... strict codec has no create() factory` when `create` is
+ *    missing, and the host's `decode()` calls `codec.create().parse(value)`.
+ *
+ * So declare `create` and keep `schema` off: the identity `parse` makes the
+ * wire value pass through unchanged, which is what an unconstrained JSON
+ * parameter/result needs.
+ *
+ * @param typeSymbol - non-empty wire type identity recorded on the codec.
+ * @returns a codec accepted by both generations.
+ */
+function jsonCodec(typeSymbol) {
+  return {
+    mode: 'strict',
+    typeSymbol,
+    create: () => ({ parse: (value) => value }),
+  };
+}
+
+/** The single flat JSON parameter every `skillMover` method accepts. */
+const INPUT_PARAMETER = { name: 'input', wire: 'input', source: 'json', codec: jsonCodec('json') };
+
 export const SKILL_MOVER_REMOTE = {
   package: 'dsh-skill-mover',
   descriptors: [
@@ -16,8 +48,8 @@ export const SKILL_MOVER_REMOTE = {
       namespace: 'skillMover',
       method: 'scan',
       invocation: { kind: 'direct' },
-      parameters: [{ name: 'input', wire: 'input', source: 'json', codec: { mode: 'strict', typeSymbol: 'json', schema: { parse: (v) => v } } }],
-      result: { mode: 'strict', typeSymbol: 'json', schema: { parse: (v) => v } },
+      parameters: [INPUT_PARAMETER],
+      result: jsonCodec('json'),
     },
     {
       id: 'dsh-skill-mover#skillMover/migrate',
@@ -25,8 +57,8 @@ export const SKILL_MOVER_REMOTE = {
       namespace: 'skillMover',
       method: 'migrate',
       invocation: { kind: 'direct' },
-      parameters: [{ name: 'input', wire: 'input', source: 'json', codec: { mode: 'strict', typeSymbol: 'json', schema: { parse: (v) => v } } }],
-      result: { mode: 'strict', typeSymbol: 'json', schema: { parse: (v) => v } },
+      parameters: [INPUT_PARAMETER],
+      result: jsonCodec('json'),
     },
     {
       id: 'dsh-skill-mover#skillMover/uninstall',
@@ -34,8 +66,8 @@ export const SKILL_MOVER_REMOTE = {
       namespace: 'skillMover',
       method: 'uninstall',
       invocation: { kind: 'direct' },
-      parameters: [{ name: 'input', wire: 'input', source: 'json', codec: { mode: 'strict', typeSymbol: 'json', schema: { parse: (v) => v } } }],
-      result: { mode: 'strict', typeSymbol: 'json', schema: { parse: (v) => v } },
+      parameters: [INPUT_PARAMETER],
+      result: jsonCodec('json'),
     },
   ],
 };

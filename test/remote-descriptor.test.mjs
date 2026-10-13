@@ -22,14 +22,16 @@
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
+import { runtimeModule } from './app-runtime.mjs'
 
 /** 新代协议存放 Remote 描述符的原型属性 key（必须与运行时内部常量逐字一致）。 */
 const DESCRIPTOR_KEY = '@deepseek-ai/dsh-typert-protocol/remote-methods'
 /** 期望暴露的 wire 方法名，顺序 = 类声明顺序。 */
 const EXPECTED_METHODS = ['scan', 'migrate', 'uninstall']
 
-const DEFAULT_RUNTIME_TYPERT =
-  '/Applications/DSH Desktop.app/Contents/Resources/app.asar/node_modules/@deepseek-ai/dsh-typert-protocol/lib/index.js'
+// DSH Desktop 2.0.10 起取消 app.asar，运行时模块在 Resources/app/node_modules。
+// 早期版本在 Resources/app.asar.unpacked/node_modules —— 由 app-runtime.mjs 探测。
+const DEFAULT_RUNTIME_TYPERT = runtimeModule('@deepseek-ai/dsh-typert-protocol/lib/index.js')
 const RUNTIME_TYPERT = process.env.SKM_RUNTIME_TYPERT || DEFAULT_RUNTIME_TYPERT
 
 const DIST_INDEX = fileURLToPath(new URL('../dist/index.js', import.meta.url))

@@ -34,6 +34,14 @@ module.exports = __toCommonJS(index_exports);
 var import_react = require("react");
 
 // src/client/remote.js
+function jsonCodec(typeSymbol) {
+  return {
+    mode: "strict",
+    typeSymbol,
+    create: () => ({ parse: (value) => value })
+  };
+}
+var INPUT_PARAMETER = { name: "input", wire: "input", source: "json", codec: jsonCodec("json") };
 var SKILL_MOVER_REMOTE = {
   package: "dsh-skill-mover",
   descriptors: [
@@ -43,8 +51,8 @@ var SKILL_MOVER_REMOTE = {
       namespace: "skillMover",
       method: "scan",
       invocation: { kind: "direct" },
-      parameters: [{ name: "input", wire: "input", source: "json", codec: { mode: "strict", typeSymbol: "json", schema: { parse: (v) => v } } }],
-      result: { mode: "strict", typeSymbol: "json", schema: { parse: (v) => v } }
+      parameters: [INPUT_PARAMETER],
+      result: jsonCodec("json")
     },
     {
       id: "dsh-skill-mover#skillMover/migrate",
@@ -52,8 +60,8 @@ var SKILL_MOVER_REMOTE = {
       namespace: "skillMover",
       method: "migrate",
       invocation: { kind: "direct" },
-      parameters: [{ name: "input", wire: "input", source: "json", codec: { mode: "strict", typeSymbol: "json", schema: { parse: (v) => v } } }],
-      result: { mode: "strict", typeSymbol: "json", schema: { parse: (v) => v } }
+      parameters: [INPUT_PARAMETER],
+      result: jsonCodec("json")
     },
     {
       id: "dsh-skill-mover#skillMover/uninstall",
@@ -61,8 +69,8 @@ var SKILL_MOVER_REMOTE = {
       namespace: "skillMover",
       method: "uninstall",
       invocation: { kind: "direct" },
-      parameters: [{ name: "input", wire: "input", source: "json", codec: { mode: "strict", typeSymbol: "json", schema: { parse: (v) => v } } }],
-      result: { mode: "strict", typeSymbol: "json", schema: { parse: (v) => v } }
+      parameters: [INPUT_PARAMETER],
+      result: jsonCodec("json")
     }
   ]
 };

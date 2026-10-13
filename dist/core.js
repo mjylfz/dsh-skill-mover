@@ -98,6 +98,51 @@ export function createCore(ctx) {
     let envCache = null;
     const getFs = () => ctx.get('fs');
     const getShell = () => ctx.get('shell');
+    /**
+     * Run one resolved shell spec and return its result record.
+     *
+     * Two runtime generations expose different shell seams:
+     *
+     *  - old (≤ 0.1.x): `shell.run(spec)` resolves the process result directly.
+     *  - new (0.2.x):   `shell.execute(spec)` resolves a process *handle*, and the
+     *    result record comes from `handle.result()`. `run()` no longer exists on
+     *    the executor at all, so calling it throws `shell.run is not a function`
+     *    and every scan/migrate dies before touching the filesystem.
+     *
+     * Probe for `run` first so the same bundle keeps working on both lines.
+     *
+     * The second half matters just as much: in 0.2.x `execute().result()` only
+     * *rejects* for infrastructure failures — a non-zero exit resolves. Left
+     * alone, a failed `cp`/`ln`/`rm` would fall straight through to the metadata
+     * write and be reported as a successful migration. So a non-zero exit (or a
+     * timeout kill) is turned back into a thrown error here, which is what the
+     * call sites' try/catch already assumes.
+     *
+     * @param shell - the `ctx.shell` executor.
+     * @param spec - a spec previously produced by `shell.resolve(...)`.
+     * @returns the process result record.
+     */
+    async function runSpec(shell, spec) {
+        let res;
+        if (typeof shell.run === 'function') {
+            res = await shell.run(spec);
+        }
+        else if (typeof shell.execute === 'function') {
+            const handle = await shell.execute(spec);
+            res = handle && typeof handle.result === 'function' ? await handle.result() : handle;
+        }
+        else {
+            throw new Error('shell 服务不提供 run() / execute() 接口');
+        }
+        if (res && res.timedOut === true) {
+            throw new Error('命令超时未完成: ' + firstLine(String(spec && spec.command), 200));
+        }
+        if (res && typeof res.exitCode === 'number' && res.exitCode !== 0) {
+            const detail = firstLine(stdoutText(res) || (res.stderr && res.stderr.text) || '', 200);
+            throw new Error('命令退出码 ' + res.exitCode + (detail ? ': ' + detail : ''));
+        }
+        return res;
+    }
     async function detectEnv() {
         if (envCache)
             return envCache;
@@ -108,7 +153,7 @@ export function createCore(ctx) {
         }
         try {
             const spec = shell.resolve({ command: 'echo "$HOME"; uname -s 2>/dev/null || true', timeoutMs: 8000, stdoutMaxBytes: 8192 });
-            const res = await shell.run(spec);
+            const res = await runSpec(shell, spec);
             const lines = stdoutText(res).split('\n').map(l => l.trim()).filter(Boolean);
             const home = lines[0] || null;
             const uname = lines[1] || '';
@@ -125,7 +170,7 @@ export function createCore(ctx) {
         if (!shell)
             throw new Error('shell 服务不可用');
         const spec = shell.resolve({ command, timeoutMs: timeoutMs || 60000, stdoutMaxBytes: 4 * 1024 * 1024 });
-        return await shell.run(spec);
+        return await runSpec(shell, spec);
     }
     async function pathExists(fs, path) {
         try {
