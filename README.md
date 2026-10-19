@@ -43,15 +43,32 @@
 
 > 路径均经过官方文档或源码核实，详见 [`docs/agent-skills-migration-research.md`](docs/agent-skills-migration-research.md)。
 
+## 版本与兼容性
+
+| 插件版本 | 支持的 DSH 运行时 | 说明 |
+|---|---|---|
+| `1.1.1` | `0.1.x` **和** `0.2.x` | 双代兼容。DSH Desktop 2.0.17（内核 `0.2.0-rc.2`）起可用 |
+| `1.1.0` | 仅 `0.1.x` | 在 `0.2.0-rc.2` 上会被兼容闸门拒绝加载 |
+
+> **升级了 DSH Desktop 的人请装 `1.1.1` 及以上。** DSH 2.0.16 起内核跳到 `0.2.0`，
+> 旧版的 peer 声明不满足新运行时，插件会被静默跳过。
+
 ## 安装
 
 **一条命令永久安装（推荐）**：
 
 ```sh
-dsh plugin --profile web add github:mjylfz/dsh-skill-mover
+# 按 tag 安装，版本可复现
+dsh plugin --profile desktop add github:mjylfz/dsh-skill-mover#v1.1.1
 ```
 
-安装完成后重启 DSH，打开 **设置 → Skill 迁移** 即可使用。
+也可以从 [Releases](https://github.com/mjylfz/dsh-skill-mover/releases) 下载 `.tgz` 后本地安装：
+
+```sh
+dsh plugin --profile desktop add file:/path/to/dsh-skill-mover-1.1.1.tgz
+```
+
+安装完成后**完全退出并重启 DSH Desktop**，打开 **设置 → Skill 迁移** 即可使用。
 
 **免安装试用（会话级）**：把仓库链接 `https://github.com/mjylfz/dsh-skill-mover` 发给你的 DSH 助手，说「帮我安装这个插件并运行」，助手会自动读取插件文件并加载；批准运行后同样在 **设置 → Skill 迁移** 使用（会话级插件重启后需重新加载）。
 

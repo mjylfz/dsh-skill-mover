@@ -45,15 +45,33 @@ Settings → Skill Mover: skills found on your machine are grouped by platform, 
 
 > All paths verified against official docs or source code. See [`docs/agent-skills-migration-research.md`](docs/agent-skills-migration-research.md) for details.
 
+## Versions and compatibility
+
+| Plugin version | Supported DSH runtime | Notes |
+|---|---|---|
+| `1.1.1` | `0.1.x` **and** `0.2.x` | Dual-generation support. Works on DSH Desktop 2.0.17 (runtime `0.2.0-rc.2`) |
+| `1.1.0` | `0.1.x` only | Rejected by the compatibility gate on `0.2.0-rc.2` |
+
+> **If you upgraded DSH Desktop, install `1.1.1` or newer.** DSH 2.0.16 moved the runtime to
+> `0.2.0`; older versions declare peers the new runtime no longer satisfies, and the plugin
+> is silently skipped.
+
 ## Install
 
 **One command, permanent install (recommended)**:
 
 ```sh
-dsh plugin --profile web add github:mjylfz/dsh-skill-mover
+# install by tag for a reproducible version
+dsh plugin --profile desktop add github:mjylfz/dsh-skill-mover#v1.1.1
 ```
 
-Restart DSH after installing, then open **Settings → Skill Mover**.
+You can also download the `.tgz` from [Releases](https://github.com/mjylfz/dsh-skill-mover/releases) and install it locally:
+
+```sh
+dsh plugin --profile desktop add file:/path/to/dsh-skill-mover-1.1.1.tgz
+```
+
+Fully quit and restart DSH Desktop after installing, then open **Settings → Skill Mover**.
 
 **Try it without installing (session-scoped)**: send the repo link `https://github.com/mjylfz/dsh-skill-mover` to your DSH assistant and say "install this plugin and run it". The assistant reads the plugin files and loads them; after you approve, use it from **Settings → Skill Mover** (session-scoped plugins need to be reloaded after a restart).
 
